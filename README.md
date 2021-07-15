@@ -11,3 +11,11 @@ Ideas:
 - can add book to reading list
 - can remove book from reading list
 - log out
+
+
+### How to run on local environment: 
+Make sure you have Python and Flask installed on your device first! 
+https://www.python.org/downloads/  
+After downloading python, you can "pip install flask" on the command line in this repository.  
+- set FLASK_APP=main.py 
+- python -m flask run
