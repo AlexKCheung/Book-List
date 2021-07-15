@@ -7,6 +7,7 @@ Ideas:
 - uses the New York Times' Books API 
 -   search book, check if it is a NYT Best Seller
 -   search book, check reviews
+- use book display API, maybe 
 - can add book to reading list
 - can remove book from reading list
 - log out
