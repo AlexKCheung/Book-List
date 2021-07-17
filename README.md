@@ -15,10 +15,5 @@ Ideas:
 
 
 ### How to run on local environment: 
-Make sure you have Python, sqlite, and Flask installed on your device first! 
-https://www.python.org/downloads/  
-https://sqlitebrowser.org/dl/  
-After downloading python, you can "pip install flask" on the command line in this repository. 
-To set up the local environment via command line:  
 - set FLASK_APP=main.py 
 - python -m flask run   
