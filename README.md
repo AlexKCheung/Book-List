@@ -12,8 +12,12 @@ Ideas:
 - can remove book from reading list
 - log out
 
-
-
 ### How to run on local environment: 
 - set FLASK_APP=main.py 
 - python -m flask run   
+
+### Files: 
+- application.py: Main chunck of program. 
+- requirements.txt: other libraries used in app
+- static/: static files like images, CSS files, etc.
+- templates/: HTML templates
