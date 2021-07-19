@@ -13,8 +13,13 @@ Ideas:
 - log out
 
 ### How to run on local environment: 
-- set FLASK_APP=main.py 
+- set FLASK_APP=application.py 
 - python -m flask run   
+
+With debug mode on: 
+- set FLASK_APP=application.py
+- set FLASK_DEBUG=1
+- python -m flask run
 
 ### Files: 
 - application.py: Main chunck of program. 
