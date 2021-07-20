@@ -16,6 +16,11 @@ def index():
 def greet():
     return render_template("greet.html", name=request.form.get("name", "there"))
 
+# book list
+@app.route("/books")
+def book():
+    return render_template("books.html")
 
-if __name__ == "__application__":
-    app.run(debug=True)
+
+# if __name__ == "__application__":
+#    app.run(debug=True)
