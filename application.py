@@ -6,13 +6,14 @@ app = Flask(__name__)
 # default method is GET
 @app.route('/') 
 def index():
-    # request.args for get requests
-    return render_template("index.html", name=request.args.get("name", "world"))
+    return render_template("index.html")
+
+# request.form for post requests
+# request.args for get requests
 
 # greeting route
 @app.route("/greet", methods=["POST"])
 def greet():
-    # request.form for post requests
     return render_template("greet.html", name=request.form.get("name", "there"))
 
 
