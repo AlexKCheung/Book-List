@@ -2,6 +2,11 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+USERS = {
+
+
+}
+
 BOOK_STATUS = [
     "Read", 
     "To Do"
@@ -26,10 +31,17 @@ def greet():
 def book_add():
     if request.method == "GET":
         return render_template("book_add.html", book_status=BOOK_STATUS)
+    
     # else POST
-    if not request.form.get("book_title") or request.form.get("book_status") not in BOOK_STATUS:
-        return render_template("book_failure.html")
-    # else
+    book_title = request.form.get("book_title")
+    book_status = request.form.get("book_status")
+    if not book_title and book_status not in BOOK_STATUS:
+        return render_template("book_failure.html", message="Book Title and Status Missing!")
+    if not book_title: 
+        return render_template("book_failure.html", message="Book Title Missing!")
+    if book_status not in BOOK_STATUS:
+        return render_template("book_failure.html", message="Book Status Missing!")
+    # else success
     return render_template("book_success.html")
 
 
