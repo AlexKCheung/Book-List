@@ -41,10 +41,16 @@ def book_add():
         return render_template("book_failure.html", message="Book Title Missing!")
     if book_status not in BOOK_STATUS:
         return render_template("book_failure.html", message="Book Status Missing!")
+    
     # else success
+    USERS[book_title] = book_status
+    # print(USERS) # console print for debugging
     return render_template("book_success.html")
 
-
+# book list
+@app.route("/book_list")
+def book_list():
+    return render_template("book_list.html", users=USERS)
 
 # if __name__ == "__application__":
 #    app.run(debug=True)

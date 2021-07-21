@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    Book List    
+    <br>
+    {{ users }}
+    <br>
+
+
+    {% for user in users %} 
+    Book Title: {{ user }}. Status: {{ users[user] }}
+    <br>
+    {% endfor %}
+
+
+
+
+{% endblock %} 
