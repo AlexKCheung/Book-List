@@ -2,6 +2,11 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+BOOK_STATUS = [
+    "Read", 
+    "To Do"
+]
+
 # basic route, index 
 # default method is GET
 @app.route('/') 
@@ -16,10 +21,17 @@ def index():
 def greet():
     return render_template("greet.html", name=request.form.get("name", "there"))
 
-# book list
-@app.route("/books")
-def book():
-    return render_template("books.html")
+# book add
+@app.route("/book_add", methods=["GET", "POST"])
+def book_add():
+    if request.method == "GET":
+        return render_template("book_add.html", book_status=BOOK_STATUS)
+    # else POST
+    if not request.form.get("book_title") or not request.form.get("book_status"):
+        return render_template("book_failure.html")
+    # else
+    return render_template("book_success.html")
+
 
 
 # if __name__ == "__application__":

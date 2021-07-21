@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block body %}
+        Add a book 
+        <br>
+        <form action="/book_add" method="post">
+            <input autocomplete="off" autofocus name="book_title" placeholder="Book Title" type="text">
+
+        <select name="book_status">
+            <option disabled selected value="">Status</option>
+            <!--
+            <option value="read">Read</option>
+            <option value="to read">To Read</option>
+            -->
+            {% for status in book_status %} 
+                <option value="{{ status }}">{{ status }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Add to List!">
+        </form>
+
+{% endblock %} 
