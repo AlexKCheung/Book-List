@@ -73,8 +73,7 @@ def book_add():
     a_book = User(book_title, book_status)
     db.session.add(a_book)
     db.session.commit()
-    print("debug here\n\n\n\n\n")
-
+    
     #return render_template("book_success.html")
     # redirect instead of success template page
     return redirect("/book_list")
