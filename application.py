@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-# SQLAlchemy setup, might not be done?
+# SQLAlchemy database setup
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///books.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
