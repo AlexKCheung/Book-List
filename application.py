@@ -1,8 +1,30 @@
 from flask import Flask, render_template, request, redirect
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
+# SQLAlchemy setup, might not be done?
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///books.sqlite3'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+
+# sqlalchemy database
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    book_title = db.Column(db.String(100))
+    book_status = db.Column(db.String(100))
+    
+    # constructor
+    def __init__(self, book_title, book_status):
+        self.book_title = book_title
+        self.book_status = book_status 
+    def __repr__(self): 
+        return '<Book %r>' % self.book_title 
+
+db.create_all()
+db.session.commit()
 
 # local running
 USERS = {
@@ -45,9 +67,15 @@ def book_add():
     
     # else success
     # USERS is local
-    USERS[book_title] = book_status
+#    USERS[book_title] = book_status
     # print(USERS) # console print for debugging
-    # return render_template("book_success.html")
+
+    a_book = User(book_title, book_status)
+    db.session.add(a_book)
+    db.session.commit()
+    print("debug here\n\n\n\n\n")
+
+    #return render_template("book_success.html")
     # redirect instead of success template page
     return redirect("/book_list")
 
@@ -55,7 +83,8 @@ def book_add():
 @app.route("/book_list")
 def book_list():
     # USERS is local
-    return render_template("book_list.html", users=USERS)
+    return render_template("book_list.html", books=User.query.all())
 
-# if __name__ == "__application__":
-#    app.run(debug=True)
+if __name__ == "__application__":
+    app.run(debug=True)
+    db.create_all()
