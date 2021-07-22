@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
+
+
+# local running
 USERS = {
-
-
 }
 
 BOOK_STATUS = [
@@ -43,13 +44,17 @@ def book_add():
         return render_template("book_failure.html", message="Book Status Missing!")
     
     # else success
+    # USERS is local
     USERS[book_title] = book_status
     # print(USERS) # console print for debugging
-    return render_template("book_success.html")
+    # return render_template("book_success.html")
+    # redirect instead of success template page
+    return redirect("/book_list")
 
 # book list
 @app.route("/book_list")
 def book_list():
+    # USERS is local
     return render_template("book_list.html", users=USERS)
 
 # if __name__ == "__application__":

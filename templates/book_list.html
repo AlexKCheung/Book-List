@@ -1,18 +1,27 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    Book List    
-    <br>
-    {{ users }}
-    <br>
+    <h2>Book List</h2>   
 
 
-    {% for user in users %} 
-    Book Title: {{ user }}. Status: {{ users[user] }}
-    <br>
-    {% endfor %}
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %} 
+            <tr>
+                <td> {{ user }} </td>
+                <td> {{ users[user] }} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
 
-
-
+    </table>
+<!-- Book Title: {{ user }}. Status: {{ users[user] }}
+    <br> -->
 
 {% endblock %} 
