@@ -28,8 +28,7 @@ db.create_all()
 db.session.commit()
 
 # local running
-USERS = {
-}
+# USERS = {}
 
 BOOK_STATUS = [
     "Read", 
@@ -68,7 +67,7 @@ def book_add():
     
     # else success / valid book title
     # USERS is local
-#    USERS[book_title] = book_status
+    # USERS[book_title] = book_status
     
     exists = User.query.filter_by(book_title=book_title).first()
     # if book_title already exists, override its status
@@ -93,32 +92,20 @@ def book_delete():
     
     # else POST
     book_title = request.form.get("book_title")
+    # check for book title input
     if not book_title:
         return render_template("book_failure.html", message="Book Title Missing!")
     
+    # check if book title is in database to be able to delete
+    exists = User.query.filter_by(book_title=book_title).first()
+    if not exists:
+        return render_template("book_failure.html", message="Book Title does not exist!")
+
     # else valid book title
     selected_book = User.query.filter_by(book_title=book_title).first()
     db.session.query(User).filter(User.id==selected_book.id).delete()
     db.session.commit()
     return redirect("/book_list")
-
-
-# book list
-@app.route("/book_list")
-def book_list():
-    # USERS is local
-
-    # Case sensitive! "sapiens" and "sapiens " are different
-    # also if status are different but title is same, will count as different, no overridding yet
-    book_list_query=User.query.with_entities(User.book_title, User.book_status).distinct()
-    return render_template("book_list.html", books=book_list_query)
-
-    #return render_template("book_list.html", books=User.query.with_entities(User.book_title).distinct())
-    return render_template("book_list.html", books=User.query.all())
-
-# todo: prevent duplicates
-# delete entire table database
-# cookies? session
 
 # delete entire db database
 @app.route("/book_list_delete")
@@ -127,8 +114,15 @@ def book_list_delete():
     db.session.commit()
     return redirect("/book_list")
 
+# book list
+@app.route("/book_list")
+def book_list():
+    book_list_query=User.query.with_entities(User.book_title, User.book_status).distinct()
+    return render_template("book_list.html", books=book_list_query)
 
 
+# TODO
+# cookies? session
 
 
 if __name__ == "__application__":
