@@ -69,10 +69,16 @@ def book_add():
     # else success
     # USERS is local
 #    USERS[book_title] = book_status
-    # print(USERS) # console print for debugging
-
-    a_book = User(book_title, book_status)
-    db.session.add(a_book)
+    
+    exists = User.query.filter_by(book_title=book_title).first()
+    # if book_title already exists, override its status
+    # else create new book_title and status
+    if exists:
+        exists.book_title = book_title
+        exists.book_status = book_status        
+    else:
+        a_book = User(book_title, book_status)
+        db.session.add(a_book)
     db.session.commit()
     
     #return render_template("book_success.html")
@@ -96,8 +102,24 @@ def book_list():
 # delete entire table database
 # cookies? session
 
-# delete table database
-# TODO
+# delete entire db database
+@app.route("/book_list_delete")
+def book_list_delete():
+    db.session.query(User).delete()
+    db.session.commit()
+    return redirect("/book_list")
+
+# delete single book from database
+#@app.route("/book_delete")
+#def book_delete():
+#    selected_book = User.query.filter_by(book_title='sapiens').first()
+#    if selected_book.id is None:
+#        return render_template("book_failure.html")
+#    db.session.query(User).filter(User.id==selected_book.id).delete()
+#    db.session.commit()
+#    return redirect("/book_list")
+
+
 
 if __name__ == "__application__":
     app.run(debug=True)
