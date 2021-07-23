@@ -21,6 +21,8 @@ With debug mode on:
 - set FLASK_DEBUG=1
 - python -m flask run
 
+Routes run locally should be at: 127.0.0.1:5000/
+
 ### Files: 
 - application.py: Main chunck of program. 
 - requirements.txt: other libraries used in app

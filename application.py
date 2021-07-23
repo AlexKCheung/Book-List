@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect
+from flask.globals import session
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -82,7 +83,20 @@ def book_add():
 @app.route("/book_list")
 def book_list():
     # USERS is local
+
+    # Case sensitive! "sapiens" and "sapiens " are different
+    # also if status are different but title is same, will count as different, no overridding yet
+    return render_template("book_list.html", books=User.query.with_entities(User.book_title, User.book_status).distinct())
+
+    #return render_template("book_list.html", books=User.query.with_entities(User.book_title).distinct())
     return render_template("book_list.html", books=User.query.all())
+
+# todo: prevent duplicates
+# delete entire table database
+# cookies? session
+
+# delete table database
+# TODO
 
 if __name__ == "__application__":
     app.run(debug=True)
