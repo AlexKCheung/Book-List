@@ -50,7 +50,7 @@ def index():
 def greet():
     return render_template("greet.html", name=request.form.get("name", "there"))
 
-# book add
+# book add to database
 @app.route("/book_add", methods=["GET", "POST"])
 def book_add():
     if request.method == "GET":
@@ -66,7 +66,7 @@ def book_add():
     if book_status not in BOOK_STATUS:
         return render_template("book_failure.html", message="Book Status Missing!")
     
-    # else success
+    # else success / valid book title
     # USERS is local
 #    USERS[book_title] = book_status
     
@@ -84,6 +84,24 @@ def book_add():
     #return render_template("book_success.html")
     # redirect instead of success template page
     return redirect("/book_list")
+
+# delete single book from database
+@app.route("/book_delete", methods=["GET", "POST"])
+def book_delete():
+    if request.method == "GET":
+        return render_template("book_delete.html")
+    
+    # else POST
+    book_title = request.form.get("book_title")
+    if not book_title:
+        return render_template("book_failure.html", message="Book Title Missing!")
+    
+    # else valid book title
+    selected_book = User.query.filter_by(book_title=book_title).first()
+    db.session.query(User).filter(User.id==selected_book.id).delete()
+    db.session.commit()
+    return redirect("/book_list")
+
 
 # book list
 @app.route("/book_list")
@@ -109,15 +127,7 @@ def book_list_delete():
     db.session.commit()
     return redirect("/book_list")
 
-# delete single book from database
-#@app.route("/book_delete")
-#def book_delete():
-#    selected_book = User.query.filter_by(book_title='sapiens').first()
-#    if selected_book.id is None:
-#        return render_template("book_failure.html")
-#    db.session.query(User).filter(User.id==selected_book.id).delete()
-#    db.session.commit()
-#    return redirect("/book_list")
+
 
 
 
