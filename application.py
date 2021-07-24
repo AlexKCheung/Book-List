@@ -115,9 +115,15 @@ def book_list_delete():
     return redirect("/book_list")
 
 # book list
-@app.route("/book_list")
+@app.route("/book_list", methods=["GET", "POST"])
 def book_list():
     book_list_query=User.query.with_entities(User.book_title, User.book_status).distinct()
+
+    # maybe dont need get and post statements, just return template with status and books
+    if request.method == "GET":
+        return render_template("book_list.html", book_status=BOOK_STATUS, books=book_list_query)
+    
+    # else POST
     return render_template("book_list.html", books=book_list_query)
 
 

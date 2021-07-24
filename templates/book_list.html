@@ -21,11 +21,41 @@
         </tbody>
     </table>
 
+    <br>
+
+    <h5 style="display:inline;"> Add a Book! </h5>
+    <form action="/book_add" method="post">
+        <input autocomplete="off" autofocus name="book_title" placeholder="Book Title" type="text">
+    <select name="book_status">
+        <option disabled selected value="">Status</option>
+        <!--
+        <option value="read">Read</option>
+        <option value="to read">To Read</option>
+        -->
+        {% for status in book_status %} 
+            <option value="{{ status }}">{{ status }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Add to List!">
+    </form>
+
+    <br>
+
+    <h5 style="display:inline;">Remove a Book!</h5>
+    <form action="/book_delete" method="post">
+        <input autocomplete="off" autofocus name="book_title" placeholder="Book Title" type="text">
+
+        <input type="submit" value="Remove from List!">
+    </form>
+
+    <br>
+<!--
     <form action="/book_add" method="GET">
         <input type="submit" value="Add a Book!">
     </form>
     <form action="/book_delete" method="GET">
         <input type="submit" value="Remove a Book!">
     </form>
+-->
 
 {% endblock %} 
