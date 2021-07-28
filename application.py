@@ -58,6 +58,10 @@ def book_add():
     # else POST
     book_title = request.form.get("book_title")
     book_status = request.form.get("book_status")
+
+    # .strip() removes tabs and spaces before and after a string
+    book_title = book_title.strip()
+
     if not book_title and book_status not in BOOK_STATUS:
         return render_template("book_failure.html", message="Book Title and Status Missing!")
     if not book_title: 
@@ -92,6 +96,10 @@ def book_delete():
     
     # else POST
     book_title = request.form.get("book_title")
+
+    # .strip() removes tabs and spaces before and after a string
+    book_title = book_title.strip()
+
     # check for book title input
     if not book_title:
         return render_template("book_failure.html", message="Book Title Missing!")
