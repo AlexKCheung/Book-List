@@ -1,6 +1,18 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<!-- JavaScript -->
+<script>
+function showAlert() {
+    let warning = '<div class="alert alert-warning"> <strong>Warning!</strong> This alert is a warning!. </div>';
+    document.getElementById("temp").innerHTML = warning;
+  }
+  </script>
+
+  <p id="temp"></p>
+  
+  <button type="button" onclick="showAlert()">Warning button</button>
+  
     <h2>Book List</h2>  
 
     <div class="container">
