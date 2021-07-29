@@ -1,13 +1,12 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<br>
 
 <p id="temp"></p>
   
-<button type="button" onclick="showAlert()">Warning button</button>
+<!-- <button type="button" onclick="showAlert()">Warning button</button> -->
 
-    <h2>Book List</h2>  
+    <h2 style="display:inline;">Book List</h2>  
 
     <div class="container">
     <table class="table table-bordered table-hover">
@@ -79,7 +78,7 @@
     }
     
     var message = "{{ message }}"
-    if (message) {
+    if (message != "None") {
         showAlert();
     }
     /*
