@@ -1,18 +1,12 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<!-- JavaScript -->
-<script>
-function showAlert() {
-    let warning = '<div class="alert alert-warning"> <strong>Warning!</strong> This alert is a warning!. </div>';
-    document.getElementById("temp").innerHTML = warning;
-  }
-  </script>
+<br>
 
-  <p id="temp"></p>
+<p id="temp"></p>
   
-  <button type="button" onclick="showAlert()">Warning button</button>
-  
+<button type="button" onclick="showAlert()">Warning button</button>
+
     <h2>Book List</h2>  
 
     <div class="container">
@@ -68,5 +62,33 @@ function showAlert() {
         <input type="submit" value="Remove a Book!">
     </form>
 -->
+
+
+<!-- JavaScript -->
+<script type="text/javascript">
+
+    function showAlert() {
+        /*  warning = yello alert button, with close alert button. 
+            aria-label="close" for accessibility for people using screen readers 
+            &times is a special HTML x button. */
+        let warning = '<div class="alert alert-warning" "alert-dismissible"> \
+            <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a> \
+            <strong>Warning!</strong> Uh oh! {{ message }}\
+            </div>';
+        document.getElementById("temp").innerHTML = warning;
+    }
+    
+    var message = "{{ message }}"
+    if (message) {
+        showAlert();
+    }
+    /*
+    message= "{{ message }}"
+    if (message) {
+        showAlert();
+    }
+    */
+
+  </script>
 
 {% endblock %} 

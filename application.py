@@ -62,12 +62,18 @@ def book_add():
     # .strip() removes tabs and spaces before and after a string
     book_title = book_title.strip()
 
+    # book list  
+    book_list_query=User.query.with_entities(User.book_title, User.book_status).distinct()
+
     if not book_title and book_status not in BOOK_STATUS:
-        return render_template("book_failure.html", message="Book Title and Status Missing!")
+        return render_template("book_list.html", message="Book title and status missing!", book_status=BOOK_STATUS, books=book_list_query)
+        # return render_template("book_failure.html", message="Book Title and Status Missing!")
     if not book_title: 
-        return render_template("book_failure.html", message="Book Title Missing!")
+        return render_template("book_list.html", message="Book title missing!", book_status=BOOK_STATUS, books=book_list_query)
+        # return render_template("book_failure.html", message="Book Title Missing!")
     if book_status not in BOOK_STATUS:
-        return render_template("book_failure.html", message="Book Status Missing!")
+        return render_template("book_list.html", message="Book status missing!", book_status=BOOK_STATUS, books=book_list_query)
+        # return render_template("book_failure.html", message="Book Status Missing!")
     
     # else success / valid book title
     # USERS is local
@@ -86,7 +92,9 @@ def book_add():
     
     #return render_template("book_success.html")
     # redirect instead of success template page
-    return redirect("/book_list")
+    # return redirect("/book_list")
+    return render_template("book_list.html", message=None, book_status=BOOK_STATUS, books=book_list_query)
+
 
 # delete single book from database
 @app.route("/book_delete", methods=["GET", "POST"])
@@ -100,20 +108,25 @@ def book_delete():
     # .strip() removes tabs and spaces before and after a string
     book_title = book_title.strip()
 
+  # book list  
+    book_list_query=User.query.with_entities(User.book_title, User.book_status).distinct()
+
     # check for book title input
     if not book_title:
-        return render_template("book_failure.html", message="Book Title Missing!")
+        return render_template("book_list.html", message="Book Title Missing!", book_status=BOOK_STATUS, books=book_list_query)
     
     # check if book title is in database to be able to delete
     exists = User.query.filter_by(book_title=book_title).first()
     if not exists:
-        return render_template("book_failure.html", message="Book Title does not exist!")
+        return render_template("book_list.html", message="Book Title does not exist!", book_status=BOOK_STATUS, books=book_list_query)
 
     # else valid book title
     selected_book = User.query.filter_by(book_title=book_title).first()
     db.session.query(User).filter(User.id==selected_book.id).delete()
     db.session.commit()
-    return redirect("/book_list")
+    # return redirect("/book_list")
+    return render_template("book_list.html", message=None, book_status=BOOK_STATUS, books=book_list_query)
+
 
 # delete entire db database
 @app.route("/book_list_delete")
