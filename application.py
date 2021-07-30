@@ -93,7 +93,7 @@ def book_add():
     #return render_template("book_success.html")
     # redirect instead of success template page
     # return redirect("/book_list")
-    return render_template("book_list.html", message=None, book_status=BOOK_STATUS, books=book_list_query)
+    return render_template("list.html", message=None, book_status=BOOK_STATUS, books=book_list_query)
 
 
 # delete single book from database
@@ -113,19 +113,19 @@ def book_delete():
 
     # check for book title input
     if not book_title:
-        return render_template("book_list.html", message="Book Title Missing!", book_status=BOOK_STATUS, books=book_list_query)
+        return render_template("book_list.html", message="Book title missing!", book_status=BOOK_STATUS, books=book_list_query)
     
     # check if book title is in database to be able to delete
     exists = User.query.filter_by(book_title=book_title).first()
     if not exists:
-        return render_template("book_list.html", message="Book Title does not exist!", book_status=BOOK_STATUS, books=book_list_query)
+        return render_template("book_list.html", message="Book title does not exist!", book_status=BOOK_STATUS, books=book_list_query)
 
     # else valid book title
     selected_book = User.query.filter_by(book_title=book_title).first()
     db.session.query(User).filter(User.id==selected_book.id).delete()
     db.session.commit()
     # return redirect("/book_list")
-    return render_template("book_list.html", message=None, book_status=BOOK_STATUS, books=book_list_query)
+    return render_template("list.html", message=None, book_status=BOOK_STATUS, books=book_list_query)
 
 
 # delete entire db database
@@ -133,7 +133,7 @@ def book_delete():
 def book_list_delete():
     db.session.query(User).delete()
     db.session.commit()
-    return redirect("/book_list")
+    return redirect("/list")
 
 # book list
 @app.route("/book_list", methods=["GET", "POST"])
@@ -142,10 +142,23 @@ def book_list():
 
     # maybe dont need get and post statements, just return template with status and books
     if request.method == "GET":
-        return render_template("book_list.html", book_status=BOOK_STATUS, books=book_list_query)
+        return render_template("list.html", book_status=BOOK_STATUS, books=book_list_query)
     
     # else POST
-    return render_template("book_list.html", books=book_list_query)
+    return render_template("list.html", books=book_list_query)
+
+
+# clean book list with no warnings
+@app.route("/list", methods=["GET", "POST"])
+def list():
+    book_list_query=User.query.with_entities(User.book_title, User.book_status).distinct()
+
+    # maybe dont need get and post statements, just return template with status and books
+    if request.method == "GET":
+        return render_template("list.html", book_status=BOOK_STATUS, books=book_list_query)
+    
+    # else POST
+    return render_template("list.html", books=book_list_query)
 
 
 # TODO

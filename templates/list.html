@@ -63,31 +63,4 @@
 -->
 
 
-<!-- JavaScript -->
-<script type="text/javascript">
-
-    function showAlert() {
-        /*  warning = yello alert button, with close alert button. 
-            aria-label="close" for accessibility for people using screen readers 
-            &times is a special HTML x button. */
-        let warning = '<div class="alert alert-warning" "alert-dismissible"> \
-            <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a> \
-            <strong>Warning!</strong> Uh oh! {{ message }}\
-            </div>';
-        document.getElementById("temp").innerHTML = warning;
-    }
-    
-    var message = "{{ message }}"
-    if (message != "None") {
-        showAlert();
-    }
-    /*
-    message= "{{ message }}"
-    if (message) {
-        showAlert();
-    }
-    */
-
-  </script>
-
 {% endblock %} 
