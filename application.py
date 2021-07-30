@@ -135,6 +135,7 @@ def book_list_delete():
     db.session.commit()
     return redirect("/list")
 
+# book list and list are essentially the same, with book list handling error messages
 # book list
 @app.route("/book_list", methods=["GET", "POST"])
 def book_list():
@@ -160,6 +161,10 @@ def list():
     # else POST
     return render_template("list.html", books=book_list_query)
 
+# about page
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 # TODO
 # cookies? session

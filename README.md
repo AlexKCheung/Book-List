@@ -28,3 +28,5 @@ Routes run locally should be at: 127.0.0.1:5000/
 - requirements.txt: other libraries used in app
 - static/: static files like images, CSS files, etc.
 - templates/: HTML templates
+
+book_add.html, book_delete.html, book_failure.html, book_success.html can be deleted, code can be changed to reroute to these pages instead of keeping all the functionality on the list page. 
