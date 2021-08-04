@@ -1,16 +1,9 @@
 # Flask-Web-App
-My first full stack website, to use the Flask web framework, HTML, CSS, JavaScript, and Python. 
+Full-stack web application that allows users to track books to read and books that they finished reading. 
 
-Ideas:  
-### Book App
-- everyone can log in and make an account 
-- uses the New York Times' Books API 
--   search book, check if it is a NYT Best Seller
--   search book, check reviews
-- use book display API, maybe 
-- can add book to reading list
-- can remove book from reading list
-- log out
+Using the Flask web framework, Bootstrap, Python, HTML, CSS, SQLite, and Jinja.
+
+Currently trying to deploy online
 
 ### How to run on local environment: 
 - set FLASK_APP=application.py 
@@ -30,3 +23,11 @@ Routes run locally should be at: 127.0.0.1:5000/
 - templates/: HTML templates
 
 book_add.html, book_delete.html, book_failure.html, book_success.html can be deleted, code can be changed to reroute to these pages instead of keeping all the functionality on the list page. 
+
+### Book List Ideas (for myself)
+- everyone can log in and make an account 
+- uses the New York Times' Books API 
+-   search book, check if it is a NYT Best Seller
+-   search book, check reviews
+- use book display API, maybe 
+- log in/out?
