@@ -3,7 +3,7 @@ Full-stack web application that allows users to track books to read and books th
 
 Using the Flask web framework, Bootstrap, Python, HTML, CSS, SQLite, and Jinja.
 
-Currently trying to deploy online
+Spent a long time trying to host online via AWS elastic beanstalk and Heroku, unsuccessfull. 
 
 ### How to run on local environment: 
 - set FLASK_APP=application.py 
